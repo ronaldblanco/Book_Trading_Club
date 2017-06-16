@@ -2,6 +2,7 @@
 
 var path = process.cwd();
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
+var BookHandler = require(path + '/app/controllers/bookHandler.server.js');
 
 module.exports = function (app, passport) {
 
@@ -14,6 +15,7 @@ module.exports = function (app, passport) {
 	}
 
 	var clickHandler = new ClickHandler();
+	var bookHandler = new BookHandler();
 
 	app.route('/')
 		.get(isLoggedIn, function (req, res) {
@@ -54,4 +56,7 @@ module.exports = function (app, passport) {
 		.get(isLoggedIn, clickHandler.getClicks)
 		.post(isLoggedIn, clickHandler.addClick)
 		.delete(isLoggedIn, clickHandler.resetClicks);
+		
+	app.route('/api/:id/search/*')
+		.get(isLoggedIn, bookHandler.searchBook);
 };
