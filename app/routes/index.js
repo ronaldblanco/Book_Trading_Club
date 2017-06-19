@@ -59,4 +59,10 @@ module.exports = function (app, passport) {
 		
 	app.route('/api/:id/search/*')
 		.get(isLoggedIn, bookHandler.searchBook);
+		
+	app.route('/api/:id/searchadd/*')
+		.get(isLoggedIn, bookHandler.addBook);
+		
+	app.route('/api/:id/mybooks')
+		.get(isLoggedIn, bookHandler.getBooks);
 };

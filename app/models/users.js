@@ -10,6 +10,9 @@ var User = new Schema({
 		username: String,
       publicRepos: Number
 	},
+	bookList: {
+	    books: Array
+	},
    nbrClicks: {
       clicks: Number
    }

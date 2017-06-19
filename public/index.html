@@ -3,8 +3,10 @@
 <html>
 
 	<head>
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 		<title>Clementine.js - The elegant and lightweight full stack JavaScript boilerplate.</title>
 		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
 	</head>
@@ -37,18 +39,23 @@
   <input type="text" class="form-control glyphicon" name="isearch" id="isearch" placeholder="Book Name">
 </div>
 
-				<button type="submit" class="btn btn-add">Search!</button>
-				<button class="btn btn-delete">RESET</button>
+				<button type="submit" class="btn btn-add">SEARCH!</button>
+				<button class="btn btn-delete">MY BOOKS</button>
 				
-				<ul class="list-group" id="sResult">
-              	</ul>
+				
 				
 			</div>
+			
+			<ul class="list-group" id="myBooks">
+              	</ul>
+			
+			<ul class="list-group" id="sResult">
+              	</ul>
 			
 		</div>
 		
 		<script type="text/javascript" src="common/ajax-functions.js"></script>
-		<script type="text/javascript" src="controllers/clickController.client.js"></script>
+		
 		<script type="text/javascript" src="controllers/bookController.client.js"></script>
 		<script type="text/javascript" src="controllers/userController.client.js"></script>
 	</body>

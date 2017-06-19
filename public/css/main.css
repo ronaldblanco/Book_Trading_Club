@@ -202,3 +202,10 @@ span {
 	display: inline;
 	margin: 0;
 }
+
+.miniimg {
+	margin-left:2%;
+	/*float:left;*/ 
+	width: 10%;
+	height: auto
+}
