@@ -4,11 +4,22 @@
 
 	<head>
 		<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-		<title>Clementine.js - The elegant and lightweight full stack JavaScript boilerplate.</title>
-		
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+		<script> 
+    $(function(){
+      $("#includedHead").load("/public/head.html"); 
+    });
+    </script> 
+    <script> 
+   /* $(function(){
+      $("#includedLogo").load("/public/logo.html"); 
+    });*/
+    </script> 
+    <script> 
+    $(function(){
+      $("#includedFoot").load("/public/foot.html"); 
+    });
+    </script> 
+    <div id="includedHead"></div>
 	</head>
 
 	<header>
@@ -35,12 +46,14 @@
 			<div class="btn-container">
 				
 				<div class="form-group">
+					<p>Make a search of your book in order to Add it to your library!</p>
 		<label for="Book Search">Book Search:</label>
   <input type="text" class="form-control glyphicon" name="isearch" id="isearch" placeholder="Book Name">
 </div>
 
 				<button type="submit" class="btn btn-add">SEARCH!</button>
 				<button class="btn btn-delete">MY BOOKS</button>
+				<a class="menu" href="/interchange">INTERCHANGE</a>
 				
 				
 				
@@ -58,6 +71,10 @@
 		
 		<script type="text/javascript" src="controllers/bookController.client.js"></script>
 		<script type="text/javascript" src="controllers/userController.client.js"></script>
+		
+		<center>
+			<div id="includedFoot"></div>
+		</center>
 	</body>
 
 </html>

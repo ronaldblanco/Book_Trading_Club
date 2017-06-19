@@ -3,6 +3,7 @@
 var path = process.cwd();
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
 var BookHandler = require(path + '/app/controllers/bookHandler.server.js');
+var ChangeHandler = require(path + '/app/controllers/changeHandler.server.js');
 
 module.exports = function (app, passport) {
 
@@ -16,6 +17,7 @@ module.exports = function (app, passport) {
 
 	var clickHandler = new ClickHandler();
 	var bookHandler = new BookHandler();
+	var changeHandler = new ChangeHandler();
 
 	app.route('/')
 		.get(isLoggedIn, function (req, res) {
@@ -36,6 +38,11 @@ module.exports = function (app, passport) {
 	app.route('/profile')
 		.get(isLoggedIn, function (req, res) {
 			res.sendFile(path + '/public/profile.html');
+		});
+		
+	app.route('/interchange')
+		.get(isLoggedIn, function (req, res) {
+			res.sendFile(path + '/public/interchange.html');
 		});
 
 	app.route('/api/:id')
@@ -63,6 +70,12 @@ module.exports = function (app, passport) {
 	app.route('/api/:id/searchadd/*')
 		.get(isLoggedIn, bookHandler.addBook);
 		
+	app.route('/api/:id/searchdel/*')
+		.get(isLoggedIn, bookHandler.delBook);
+		
 	app.route('/api/:id/mybooks')
 		.get(isLoggedIn, bookHandler.getBooks);
+		
+	app.route('/api/:id/change')
+		.get(isLoggedIn, changeHandler.getAllBooks);
 };

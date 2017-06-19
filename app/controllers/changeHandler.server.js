@@ -4,15 +4,26 @@ var Users = require('../models/users.js');
 var books = require('google-books-search');
 var unhtml = require('unhtml');
 
-function BookHandler () {
+function ChangeHandler () {
 
-	this.getBooks = function (req, res) {
+	this.getAllBooks = function (req, res) {
 		Users
-			.findOne({ 'github.id': req.user.github.id }, { '_id': false })
+			.find({}, {})
 			.exec(function (err, result) {
 				if (err) { throw err; }
+				
+				var final = [];
+				result.forEach(function(user){
+					user.bookList.books.forEach(function(book){
+						final.push({'user': user.github.id,'userName':user.github.username,'book':book});
+					});
+					
+				});
+				//console.log(final);
+				//result.polls.push("hola");
+				res.json(final);//Array
 
-				res.json(result.bookList.books);
+				//res.json(result.bookList.books);
 			});
 	};
 
@@ -74,10 +85,10 @@ function BookHandler () {
 	
 	this.delBook = function (req, res) {
 		var bookTitle = req.originalUrl.toString().split("/api/:id/searchdel/")[1];
-		var book = unhtml(bookTitle).replace(/%20/g, " ");
-		//console.log(bookTitle);
+		//var book = bookText.split('*****');
+		//console.log(book);
 		Users
-			.findOneAndUpdate({ 'github.id': req.user.github.id }, { $pull: { 'bookList.books': { title:book} } })
+			.findOneAndUpdate({ 'github.id': req.user.github.id }, { $pull: { 'bookList.books': { title:bookTitle} } })
 			.exec(function (err, result) {
 					if (err) { throw err; }
 
@@ -88,4 +99,4 @@ function BookHandler () {
 
 }
 
-module.exports = BookHandler;
+module.exports = ChangeHandler;
