@@ -6,6 +6,9 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
 
+var bodyParser = require('body-parser');
+//var bodyparser = require('simple-bodyparser');
+
 var app = express();
 require('dotenv').load();
 require('./app/config/passport')(passport);
@@ -26,7 +29,18 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-routes(app, passport);
+
+// parse application/x-www-form-urlencoded 
+//app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json 
+//app.use(bodyParser.json());
+//app.use(bodyParser());
+/*app.use(function(req, res, next){
+  var body = req.body;
+});*/
+
+
+routes(app, passport, bodyParser);
 
 var port = process.env.PORT || 8080;
 app.listen(port,  function () {

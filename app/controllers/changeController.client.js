@@ -7,35 +7,33 @@
    //var clickNbr = document.querySelector('#click-nbr');
    var isearch = document.querySelector('#isearch');*/
    var allBooks = document.querySelector('#allBooks');
-   //var myBooks = document.querySelector('#myBooks');
+   var myChanges = document.querySelector('#mychanges');
    var apiUrl = appUrl + '/api/:id/change';
 
    function updateSearch (data) {
       var search = JSON.parse(data);
-      allBooks.innerHTML = '<tr>';
+      //console.log(search);
+      allBooks.innerHTML = '';
       var count = 1;
       for(var a = 0; a < search.length; a++){
-         /*if(count == 5){
-            allBooks.innerHTML = allBooks.innerHTML + "</tr><tr>";
-            count = 1;
-         } */
-         if(search[a].subtitle !== undefined) allBooks.innerHTML = allBooks.innerHTML + '<td><input type="radio" value="' +search[a].book.title+"*****"+search[a].book.subtitle+'*****'+search[a].book.thumbnail+ '" name="radioBook" id="radioBook'+a+'">'+search[a].book.title+'<br>Info: '+search[a].book.subtitle+'<br><img src='+search[a].book.thumbnail+' class = "miniimg img-rounded"></td>';
-         else allBooks.innerHTML = allBooks.innerHTML + '<td><input type="radio" value="' +search[a].book.title+'*****'+search[a].book.thumbnail+ '" name="radioBook" id="radioBook'+a+'">'+search[a].book.title+'<img src='+search[a].book.thumbnail+' class = "miniimg img-rounded"></td>';
+         
+         if(search[a].subtitle !== undefined) allBooks.innerHTML = allBooks.innerHTML + '<li><div><input type="radio" value="' +search[a].book.title+"*****"+search[a].user+ "*****"+search[a].userName+ '" name="radioBook" id="radioBook'+a+'">'+search[a].book.title+'<br>Info: '+search[a].book.subtitle+'<br><img src='+search[a].book.thumbnail+' class = "miniimg img-rounded"></div>      </li>';
+         else allBooks.innerHTML = allBooks.innerHTML + '<li><div><input type="radio" value="' +search[a].book.title+'*****'+search[a].user +"*****"+search[a].userName+'" name="radioBook" id="radioBook'+a+'">'+search[a].book.title+'<img src='+search[a].book.thumbnail+' class = "miniimg img-rounded"></div>        </li>';
          count++;
       }
-     allBooks.innerHTML = allBooks.innerHTML + '</tr>';
+     allBooks.innerHTML = allBooks.innerHTML + '';
    }
    
-   /*function updateMyBooks (data) {
+   function updateMyChanges (data) {
       var books = JSON.parse(data);
       console.log(books);
-      myBooks.innerHTML = '<h3>THIS IS MY LIBRARY:</h3><br>';
+      myChanges.innerHTML = '<h3>THIS ARE MY CHANGES:</h3><br>';
       for(var a = 0; a < books.length; a++){
-         if(books[a].subtitle !== null) myBooks.innerHTML = myBooks.innerHTML + '<li><input type="radio" value="' +books[a].title+'" name="radioMyBook" id="radioBook'+a+'">'+books[a].title+'<br>Info: '+books[a].subtitle+'<br><img src='+books[a].thumbnail+' class = "miniimg img-rounded"></li><br>';
-         else myBooks.innerHTML = myBooks.innerHTML + '<li><input type="radio" value="' +books[a].title+'" name="radioMyBook" id="radioBook'+a+'">'+books[a].title+'<img src='+books[a].thumbnail+' class = "miniimg img-rounded"></li><br>';
+         /*if(books[a].subtitle !== null)*/ myChanges.innerHTML = myChanges.innerHTML + '<li><input type="radio" value="' +books[a].title+'" name="radioMyBook" id="radioBook'+a+'">'+books[a].title+'<br>From: '+books[a].userName+'</li><br>';
+         //else myBooks.innerHTML = myBooks.innerHTML + '<li><input type="radio" value="' +books[a].title+'" name="radioMyBook" id="radioBook'+a+'">'+books[a].title+'<img src='+books[a].thumbnail+' class = "miniimg img-rounded"></li><br>';
       }
       
-   }*/
+   }
 
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, updateSearch));
 
@@ -46,17 +44,17 @@
 
    }, false);*/
    
-   /*sResult.addEventListener('click', function () {
+   allBooks.addEventListener('click', function () {
 
       var book = document.querySelector('input[name = "radioBook"]:checked').value;
       //document.querySelector("#login").innerHTML = 'YOU NEED TO LOGIN IN ORDER TO SELECT A PLACE!<br><a href="/auth/github">					<div class="btn" id="login-btn">						<img src="/public/img/github_32px.png" alt="github logo" />						<p>LOGIN WITH GITHUB</p>					</div>				</a>';
       ajaxFunctions.ajaxRequest('GET', apiUrl+'add/'+book, function (){
-         ajaxFunctions.ajaxRequest('GET', appUrl+'/api/:id/mybooks', updateMyBooks);
-         //ajaxFunctions.ajaxRequest('GET', apiUrl+'get', updateSearch);
+         //ajaxFunctions.ajaxRequest('GET', appUrl+'/api/:id/mybooks', updateSearch);
+         ajaxFunctions.ajaxRequest('GET', apiUrl+'smy', updateMyChanges);
       });
       
 
-   }, false);*/
+   }, false);
 
    /*myBooksButton.addEventListener('click', function () {
 

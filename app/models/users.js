@@ -13,6 +13,9 @@ var User = new Schema({
 	bookList: {
 	    books: Array
 	},
+	changeList: {
+	    books: Array
+	},
    nbrClicks: {
       clicks: Number
    }

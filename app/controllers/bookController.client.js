@@ -8,6 +8,9 @@
    var isearch = document.querySelector('#isearch');
    var sResult = document.querySelector('#sResult');
    var myBooks = document.querySelector('#myBooks');
+   
+   //var text = document.querySelector('#text');
+   
    var apiUrl = appUrl + '/api/:id/search';
 
    function updateSearch (data) {
@@ -43,8 +46,9 @@
    sResult.addEventListener('click', function () {
 
       var book = document.querySelector('input[name = "radioBook"]:checked').value;
-      //document.querySelector("#login").innerHTML = 'YOU NEED TO LOGIN IN ORDER TO SELECT A PLACE!<br><a href="/auth/github">					<div class="btn" id="login-btn">						<img src="/public/img/github_32px.png" alt="github logo" />						<p>LOGIN WITH GITHUB</p>					</div>				</a>';
-      ajaxFunctions.ajaxRequest('GET', apiUrl+'add/'+book, function (){
+      //document.querySelector("#text").value = book;
+      
+      ajaxFunctions.ajaxRequest('POST', apiUrl+'add?data='+book, function (){
          ajaxFunctions.ajaxRequest('GET', appUrl+'/api/:id/mybooks', updateMyBooks);
          //ajaxFunctions.ajaxRequest('GET', apiUrl+'get', updateSearch);
       });

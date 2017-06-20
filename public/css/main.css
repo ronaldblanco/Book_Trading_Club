@@ -209,3 +209,27 @@ span {
 	width: 10%;
 	height: auto
 }
+
+.mycontainer {
+    width: 100%;
+    background-color: #ffcc33;
+    margin: auto;
+}
+.first {
+    width: 30%;
+    float: left;
+    height: 20%;
+        background-color: blue;
+}
+.second {
+    width: 60%;
+    float: left;
+    height: 20%;
+    background-color: green;
+}
+.one3 {
+    width: 30px;
+    float: right;
+    height: 20%;
+    background-color: #ffcc00;
+}

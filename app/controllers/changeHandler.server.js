@@ -19,36 +19,25 @@ function ChangeHandler () {
 					});
 					
 				});
-				//console.log(final);
+				console.log(final);
 				//result.polls.push("hola");
 				res.json(final);//Array
 
 				//res.json(result.bookList.books);
 			});
 	};
-
-	/*this.addClick = function (req, res) {
-		Users
-			.findOneAndUpdate({ 'github.id': req.user.github.id }, { $inc: { 'nbrClicks.clicks': 1 } })
-			.exec(function (err, result) {
-					if (err) { throw err; }
-
-					res.json(result.nbrClicks);
-				}
-			);
-	};*/
-
-	/*this.resetClicks = function (req, res) {
-		Users
-			.findOneAndUpdate({ 'github.id': req.user.github.id }, { 'nbrClicks.clicks': 0 })
-			.exec(function (err, result) {
-					if (err) { throw err; }
-
-					res.json(result.nbrClicks);
-				}
-			);
-	};*/
 	
+	this.getChanges = function (req, res) {
+		//console.log(req.body);
+		Users
+			.findOne({ 'github.id': req.user.github.id }, { '_id': false })
+			.exec(function (err, result) {
+				if (err) { throw err; }
+
+				res.json(result.changeList.books);
+			});
+	};
+
 	this.searchBook = function(req,res){
 		
 		var book = req.originalUrl.toString().split("/api/:id/search/")[1];//.split("_");
@@ -63,36 +52,36 @@ function ChangeHandler () {
 		
 	}
 	
-	this.addBook = function (req, res) {
+	this.addChange = function (req, res) {
 		//console.log(req.originalUrl.toString().split("/add/")[1]);
-		var bookText = req.originalUrl.toString().split("/api/:id/searchadd/")[1];
+		var bookText = req.originalUrl.toString().split("/api/:id/changeadd/")[1];
 		var book = bookText.split('*****');
 		//console.log(book);
 		var inData = {};
-		if(book.length == 3) inData = { title:unhtml(book[0]).replace(/%20/g, " "), subtitle:unhtml(book[1]).replace(/%20/g, " "), thumbnail:unhtml(book[2]).replace(/%20/g, " ")};
-		else if(book.length < 3) inData = { title:unhtml(book[0]).replace(/%20/g, " "), subtitle:undefined, thumbnail:unhtml(book[1]).replace(/%20/g, " ")};
+		/*if(book.length == 3) */inData = { title:unescape(book[0]), user:book[1], userName:book[2] };
+		//else if(book.length < 3) inData = { title:unescape(book[0]), user:book[1]};
 		
 		Users
-			.findOneAndUpdate({ 'github.id': req.user.github.id }, { $push: { 'bookList.books': inData } })
+			.findOneAndUpdate({ 'github.id': req.user.github.id }, { $push: { 'changeList.books': inData } })
 			.exec(function (err, result) {
 					if (err) { throw err; }
 
-					res.json(result.bookList.books);
+					res.json(result.changeList.books);
 				}
 			);
 			
 	};
 	
-	this.delBook = function (req, res) {
-		var bookTitle = req.originalUrl.toString().split("/api/:id/searchdel/")[1];
+	this.delChange = function (req, res) {
+		var bookTitle = req.originalUrl.toString().split("/api/:id/changedel/")[1];
 		//var book = bookText.split('*****');
 		//console.log(book);
 		Users
-			.findOneAndUpdate({ 'github.id': req.user.github.id }, { $pull: { 'bookList.books': { title:bookTitle} } })
+			.findOneAndUpdate({ 'github.id': req.user.github.id }, { $pull: { 'changeList.books': { title:bookTitle} } })
 			.exec(function (err, result) {
 					if (err) { throw err; }
 
-					res.json(result.bookList.books);
+					res.json(result.changeList.books);
 				}
 			);
 	};

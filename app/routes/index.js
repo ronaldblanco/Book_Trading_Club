@@ -5,7 +5,9 @@ var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
 var BookHandler = require(path + '/app/controllers/bookHandler.server.js');
 var ChangeHandler = require(path + '/app/controllers/changeHandler.server.js');
 
-module.exports = function (app, passport) {
+module.exports = function (app, passport, bodyParser) {
+	
+	app.use(bodyParser());
 
 	function isLoggedIn (req, res, next) {
 		if (req.isAuthenticated()) {
@@ -67,15 +69,28 @@ module.exports = function (app, passport) {
 	app.route('/api/:id/search/*')
 		.get(isLoggedIn, bookHandler.searchBook);
 		
-	app.route('/api/:id/searchadd/*')
-		.get(isLoggedIn, bookHandler.addBook);
+	/*app.route('/api/:id/searchadd/*')
+		.post(isLoggedIn, bookHandler.addBook);*/
+		
+	app.route('/api/:id/searchadd')
+		.post(isLoggedIn, bookHandler.addBook);
 		
 	app.route('/api/:id/searchdel/*')
 		.get(isLoggedIn, bookHandler.delBook);
 		
 	app.route('/api/:id/mybooks')
-		.get(isLoggedIn, bookHandler.getBooks);
+		.get(isLoggedIn, bookHandler.getBooks)
+		.post(isLoggedIn, bookHandler.getBooks);
 		
 	app.route('/api/:id/change')
 		.get(isLoggedIn, changeHandler.getAllBooks);
+		
+	app.route('/api/:id/changesmy')
+		.get(isLoggedIn, changeHandler.getChanges);
+		
+	app.route('/api/:id/changeadd/*')
+		.get(isLoggedIn, changeHandler.addChange);
+		
+	/*app.route('/api/:id/req')
+		.get(isLoggedIn, bookHandler.getReq);*/
 };
