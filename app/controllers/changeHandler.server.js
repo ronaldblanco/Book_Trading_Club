@@ -19,7 +19,7 @@ function ChangeHandler () {
 					});
 					
 				});
-				console.log(final);
+				//console.log(final);
 				//result.polls.push("hola");
 				res.json(final);//Array
 
@@ -77,7 +77,7 @@ function ChangeHandler () {
 		//var book = bookText.split('*****');
 		//console.log(book);
 		Users
-			.findOneAndUpdate({ 'github.id': req.user.github.id }, { $pull: { 'changeList.books': { title:bookTitle} } })
+			.findOneAndUpdate({ 'github.id': req.user.github.id }, { $pull: { 'changeList.books': { title:unescape(bookTitle)} } })
 			.exec(function (err, result) {
 					if (err) { throw err; }
 

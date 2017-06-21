@@ -91,6 +91,9 @@ module.exports = function (app, passport, bodyParser) {
 	app.route('/api/:id/changeadd/*')
 		.get(isLoggedIn, changeHandler.addChange);
 		
+	app.route('/api/:id/changedel/*')
+		.get(isLoggedIn, changeHandler.delChange);
+		
 	/*app.route('/api/:id/req')
 		.get(isLoggedIn, bookHandler.getReq);*/
 };

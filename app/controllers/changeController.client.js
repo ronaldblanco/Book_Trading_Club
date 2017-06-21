@@ -8,6 +8,7 @@
    var isearch = document.querySelector('#isearch');*/
    var allBooks = document.querySelector('#allBooks');
    var myChanges = document.querySelector('#mychanges');
+   var myChangesButton = document.querySelector('#myChangesB');
    var apiUrl = appUrl + '/api/:id/change';
 
    function updateSearch (data) {
@@ -29,7 +30,7 @@
       console.log(books);
       myChanges.innerHTML = '<h3>THIS ARE MY CHANGES:</h3><br>';
       for(var a = 0; a < books.length; a++){
-         /*if(books[a].subtitle !== null)*/ myChanges.innerHTML = myChanges.innerHTML + '<li><input type="radio" value="' +books[a].title+'" name="radioMyBook" id="radioBook'+a+'">'+books[a].title+'<br>From: '+books[a].userName+'</li><br>';
+         /*if(books[a].subtitle !== null)*/ myChanges.innerHTML = myChanges.innerHTML + '<li><input type="radio" value="' +books[a].title+'" name="radioChanges" id="radioChange'+a+'">'+books[a].title+'<br>From: '+books[a].userName+'</li><br>';
          //else myBooks.innerHTML = myBooks.innerHTML + '<li><input type="radio" value="' +books[a].title+'" name="radioMyBook" id="radioBook'+a+'">'+books[a].title+'<img src='+books[a].thumbnail+' class = "miniimg img-rounded"></li><br>';
       }
       
@@ -56,26 +57,27 @@
 
    }, false);
 
-   /*myBooksButton.addEventListener('click', function () {
+   myChanges.addEventListener('click', function () {
 
-      //ajaxFunctions.ajaxRequest('DELETE', apiUrl, function () {
-         ajaxFunctions.ajaxRequest('GET', appUrl+'/api/:id/mybooks', updateMyBooks);
-      //});
+   var book = document.querySelector('input[name = "radioChanges"]:checked').value;
+      ajaxFunctions.ajaxRequest('GET', apiUrl+'del/'+book, function () {
+         ajaxFunctions.ajaxRequest('GET', apiUrl+'smy', updateMyChanges);
+      });
 
-   }, false);*/
+   }, false);
    
-   /*if(myBooks !== undefined){
-      myBooks.addEventListener('click', function () {
+   myChangesButton.addEventListener('click', function () {
 
-         var book = document.querySelector('input[name = "radioMyBook"]:checked').value;
+         /*var book = document.querySelector('input[name = "radioMyBook"]:checked').value;
          //document.querySelector("#login").innerHTML = 'YOU NEED TO LOGIN IN ORDER TO SELECT A PLACE!<br><a href="/auth/github">					<div class="btn" id="login-btn">						<img src="/public/img/github_32px.png" alt="github logo" />						<p>LOGIN WITH GITHUB</p>					</div>				</a>';
          ajaxFunctions.ajaxRequest('GET', apiUrl+'del/'+book, function (){
-            ajaxFunctions.ajaxRequest('GET', appUrl+'/api/:id/mybooks', updateMyBooks);
-            //ajaxFunctions.ajaxRequest('GET', apiUrl+'get', updateSearch);
-         });
+            ajaxFunctions.ajaxRequest('GET', appUrl+'/api/:id/mybooks', updateMyBooks);*/
+            //ajaxFunctions.ajaxRequest('GET', apiUrl, updateSearch);
+            ajaxFunctions.ajaxRequest('GET', apiUrl+'smy', updateMyChanges);
+        // });
       
 
       }, false);
-   }*/
+   
 
 })();
