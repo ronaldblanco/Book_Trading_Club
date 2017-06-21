@@ -37,8 +37,32 @@ function ChangeHandler () {
 				res.json(result.changeList.books);
 			});
 	};
+	
+	this.getAllChangesForUser = function (req, res) {
+		
+		var userId = req.originalUrl.toString().split("/api/:id/changesforme/")[1];
+		console.log(userId);
+		Users
+			.find({}, {})
+			.exec(function (err, result) {
+				if (err) { throw err; }
+				
+				var final = [];
+				result.forEach(function(user){
+					user.changeList.books.forEach(function(book){
+						if(book.user == userId) final.push({'user': user.github.id,'userName':user.github.username,'book':book});
+					});
+					
+				});
+				//console.log(final);
+				//result.polls.push("hola");
+				res.json(final);//Array
 
-	this.searchBook = function(req,res){
+				//res.json(result.bookList.books);
+			});
+	};
+
+	/*this.searchBook = function(req,res){
 		
 		var book = req.originalUrl.toString().split("/api/:id/search/")[1];//.split("_");
 		books.search(book, function(error, results) {
@@ -50,7 +74,7 @@ function ChangeHandler () {
     		}
 		});
 		
-	}
+	}*/
 	
 	this.addChange = function (req, res) {
 		//console.log(req.originalUrl.toString().split("/add/")[1]);
@@ -58,7 +82,7 @@ function ChangeHandler () {
 		var book = bookText.split('*****');
 		//console.log(book);
 		var inData = {};
-		/*if(book.length == 3) */inData = { title:unescape(book[0]), user:book[1], userName:book[2] };
+		/*if(book.length == 3) */inData = { title:unescape(book[0]), user:book[1], userName:book[2], approbed: false };
 		//else if(book.length < 3) inData = { title:unescape(book[0]), user:book[1]};
 		
 		Users
