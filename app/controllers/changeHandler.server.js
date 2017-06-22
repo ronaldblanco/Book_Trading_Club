@@ -1,6 +1,7 @@
 'use strict';
 
 var Users = require('../models/users.js');
+var Users1 = require('../models/users.js');
 var books = require('google-books-search');
 var unhtml = require('unhtml');
 
@@ -60,6 +61,68 @@ function ChangeHandler () {
 
 				//res.json(result.bookList.books);
 			});
+	};
+	
+	this.setA = function (req, res) {
+		
+		var bookTitle = req.originalUrl.toString().split("/api/:id/changesa/")[1].split('*****')[1];
+		var user = req.originalUrl.toString().split("/api/:id/changesa/")[1].split('*****')[0];
+		console.log(req.originalUrl.toString().split("/api/:id/changesa/")[1]);
+		
+		var state = undefined;
+		Users
+			.findOne({ 'github.id': user,'changeList.books.title': unescape(bookTitle), 'changeList.books.user': req.user.github.id }, { })
+			.exec(function (err, result) {
+					if (err) { throw err; }
+					for(var a =0; a< result.changeList.books.length; a++){
+						if(result.changeList.books[a].title == unescape(bookTitle)) state = result.changeList.books[a].approbed;
+					}
+					console.log(state);
+					
+					
+					
+					if (state === false) state = true;
+					else if(state === true) state = false;
+					else if (state === null) state = false;
+					Users1
+						.findOneAndUpdate({ 'github.id': user, 'changeList.books.title': unescape(bookTitle) /*,'changeList.books.user': req.user.github.id*/ }, { 'changeList.books.$.approbed': state })
+						.exec(function (err, result) {
+								if (err) { throw err; }
+								//console.log(result.changeList)
+								res.json(result);
+							}
+						);
+
+				}
+			);
+			/*if (state === false) state = true;
+			else if(state === true) state = false;
+			else if (state === null) state = false;
+			console.log(state);*/
+			
+		/*Users
+			.findOneAndUpdate({ 'changeList.books.title': unescape(bookTitle) }, { 'changeList.books.$.approbed': state })
+			.exec(function (err, result) {
+					if (err) { throw err; }
+					//console.log(result.changeList)
+					res.json(result);
+				}
+			);*/
+	};
+	
+	this.getA = function (req, res) {
+		
+		var bookTitle = req.originalUrl.toString().split("/api/:id/changesa/")[1].split('*****')[1];
+		var user = req.originalUrl.toString().split("/api/:id/changesa/")[1].split('*****')[0];
+		
+		Users
+			.findOneAndUpdate({ /*'github.id': user,*/ 'changeList.books.title': unescape(bookTitle), 'changeList.books.user': req.user.github.id }, { 'changeList.books.$.approbed': true })
+			.exec(function (err, result) {
+					if (err) { throw err; }
+					console.log(result)
+					res.json(result);
+				}
+			);
 	};
 
 	/*this.searchBook = function(req,res){
