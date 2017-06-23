@@ -21,6 +21,9 @@ body {
 	font-size: 16px;
 	margin: 0;
 	padding: 0;
+	
+	background-image: url("../img/paper1x_thumb.jpg");
+    background-color: #cccccc;
 }
 
 header {
@@ -233,3 +236,5 @@ span {
     height: 20%;
     background-color: #ffcc00;
 }
+
+

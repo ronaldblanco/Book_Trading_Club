@@ -1,6 +1,5 @@
 'use strict';
 
-var twitterStrategy = require('passport-twitter').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
 var User = require('../models/users');
 var configAuth = require('./auth');
@@ -16,15 +15,10 @@ module.exports = function (passport) {
 		});
 	});
 
-	/*passport.use(new GitHubStrategy({
+	passport.use(new GitHubStrategy({
 		clientID: configAuth.githubAuth.clientID,
 		clientSecret: configAuth.githubAuth.clientSecret,
 		callbackURL: configAuth.githubAuth.callbackURL
-	},*/
-	passport.use(new twitterStrategy({
-		consumerKey: configAuth.twitterAuth.clientID,
-		consumerSecret: configAuth.twitterAuth.clientSecret,
-		callbackURL: configAuth.twitterAuth.callbackURL
 	},
 	function (token, refreshToken, profile, done) {
 		process.nextTick(function () {
@@ -41,8 +35,7 @@ module.exports = function (passport) {
 					newUser.github.id = profile.id;
 					newUser.github.username = profile.username;
 					newUser.github.displayName = profile.displayName;
-					newUser.github.publicRepos = 0;
-					newUser.github.photo = profile.photos[0].value;
+					newUser.github.publicRepos = profile._json.public_repos;
 					//newUser.nbrClicks.clicks = 0;
 					newUser.geolocation.city = '';
 					newUser.geolocation.state = '';

@@ -2,6 +2,7 @@
 
 (function () {
 
+   var photoId = document.querySelector('#photoId') || null;
    var profileId = document.querySelector('#profile-id') || null;
    var profileUsername = document.querySelector('#profile-username') || null;
    var profileRepos = document.querySelector('#profile-repos') || null;
@@ -57,8 +58,12 @@
          updateHtmlElement(userObject, profileUsername, 'username');   
       }
 
-      if (profileRepos !== null) {
+      /*if (profileRepos !== null) {
          updateHtmlElement(userObject, profileRepos, 'publicRepos');   
+      }*/
+      
+      if (userObject.photo !== null && photoId !== null) {
+         photoId.innerHTML =  '<img src='+userObject.photo+' class = "img-rounded">'
       }
       
       mainUserId = userObject.id;
