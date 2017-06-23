@@ -26,9 +26,9 @@
          changeP.innerHTML = '';
          for(var a = 0; a < books.length; a++){
             console.log(books[a]);
-            /*if(books[a].subtitle !== null)*/ changeP.innerHTML = changeP.innerHTML + '<li><input type="radio" value="' +books[a].user+'*****'+books[a].book.title+'" name="radioChanges" id="radioChange'+a+'">The User '+ books[a].userName +' wants to trade "' +books[a].book.title+'" with you!';
-            if(books[a].book.approbed == false) changeP.innerHTML = changeP.innerHTML + 'I do not trade!</li><br>';
-            else changeP.innerHTML = changeP.innerHTML + 'I will trade!</li><br>';
+            /*if(books[a].subtitle !== null)*/ changeP.innerHTML = changeP.innerHTML + '<li><input type="radio" value="' +books[a].user+'*****'+books[a].book.title+'" name="radioChanges" id="radioChange'+a+'"><p class="bg-primary">The User <kbd>'+ books[a].userName +'</kbd> wants to trade "' +books[a].book.title+'" with you!</p>';
+            if(books[a].book.approbed == false) changeP.innerHTML = changeP.innerHTML + '<p class="bg-danger">I do not trade!</p></li><br>';
+            else changeP.innerHTML = changeP.innerHTML + '<p class="bg-success">I will trade!</p></li><br>';
             //else myBooks.innerHTML = myBooks.innerHTML + '<li><input type="radio" value="' +books[a].title+'" name="radioMyBook" id="radioBook'+a+'">'+books[a].title+'<img src='+books[a].thumbnail+' class = "miniimg img-rounded"></li><br>';
          }
       //}

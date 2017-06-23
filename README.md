@@ -1,3 +1,24 @@
+# Book Trading Club
+
+[![Join the chat at https://gitter.im/johnstonbl01/clementinejs](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/johnstonbl01/clementinejs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+## Autor
+
+Created by Ronald Blanco.
+
+pnald.blanco@gmail.com<br>
+https://github.com/ronaldblanco<br>
+https://www.linkedin.com/in/ronald-blanco-carrazana-5b506268/<br>
+http://codepen.io/ronaldblanco/#<br>
+https://www.freecodecamp.com/ronaldblanco<br>
+
+## User Story
+
+I can view all books posted by every user.<br>
+I can add a new book.<br>
+I can update my settings to store my full name, city, and state.<br>
+I can propose a trade and wait for the other user to accept the trade.<br>
+
 # Clementine.js FCC Boilerplate
 
 [![Join the chat at https://gitter.im/johnstonbl01/clementinejs](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/johnstonbl01/clementinejs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
