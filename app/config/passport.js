@@ -36,7 +36,9 @@ module.exports = function (passport) {
 					newUser.github.username = profile.username;
 					newUser.github.displayName = profile.displayName;
 					newUser.github.publicRepos = profile._json.public_repos;
-					newUser.nbrClicks.clicks = 0;
+					//newUser.nbrClicks.clicks = 0;
+					newUser.geolocation.city = '';
+					newUser.geolocation.state = '';
 
 					newUser.save(function (err) {
 						if (err) {

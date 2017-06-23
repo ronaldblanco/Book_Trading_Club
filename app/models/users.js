@@ -10,6 +10,10 @@ var User = new Schema({
 		username: String,
       publicRepos: Number
 	},
+	geolocation: {
+		city: String,
+		state: String
+	},
 	bookList: {
 	    books: Array
 	},

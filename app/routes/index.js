@@ -99,4 +99,10 @@ module.exports = function (app, passport, bodyParser) {
 		
 	app.route('/api/:id/changesa/*')
 		.get(isLoggedIn, changeHandler.setA);
+		
+	app.route('/api/:id/changesetgeo/*')
+		.get(isLoggedIn, changeHandler.setGeoLocation);
+		
+	app.route('/api/:id/changegetgeo')
+		.get(isLoggedIn, changeHandler.getGeoLocation);
 };

@@ -7,6 +7,11 @@
    var profileRepos = document.querySelector('#profile-repos') || null;
    var displayName = document.querySelector('#display-name') || null;
    var changeP = document.querySelector('#changesp') || null;
+   
+   var city = document.querySelector('#city') || null;
+   var state = document.querySelector('#state') || null;
+   var save = document.querySelector('#save') || null;
+   
    var apiUrl = appUrl + '/api/:id';
    var mainUserId;
 
@@ -14,8 +19,6 @@
       element.innerHTML = data[userProperty];
    }
    
-   //if(changeP != null){
-      
    function updateChangesFMe (data) {
       var books = JSON.parse(data);
       console.log(books);
@@ -31,7 +34,11 @@
       //}
    }
    
-   //}
+   function updateGeoLocation (data) {
+      var myData = JSON.parse(data);
+      document.querySelector('#city').value = myData.city;
+      document.querySelector('#state').value = myData.state;
+   }
 
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
       var userObject = JSON.parse(data);
@@ -56,10 +63,11 @@
       
       mainUserId = userObject.id;
       ajaxFunctions.ajaxRequest('GET', apiUrl+'/changesforme/'+userObject.id, updateChangesFMe);
+      ajaxFunctions.ajaxRequest('GET', apiUrl+'/changegetgeo', updateGeoLocation);
 
    }));
    
-   //if(changeP != null){
+   if(changeP != null){
       
       changeP.addEventListener('click', function () {
 
@@ -70,7 +78,16 @@
 
       }, false);
       
-   //}
+   }
+   
+   save.addEventListener('click', function () {
+
+      var geolocation = city.value + '*****'+ state.value;
+         ajaxFunctions.ajaxRequest('GET', apiUrl+'/changesetgeo/'+geolocation, function () {
+            ajaxFunctions.ajaxRequest('GET', apiUrl+'/changegetgeo', updateGeoLocation);
+         });
+
+      }, false);
    
    
 })();

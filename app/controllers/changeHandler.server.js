@@ -16,7 +16,7 @@ function ChangeHandler () {
 				var final = [];
 				result.forEach(function(user){
 					user.bookList.books.forEach(function(book){
-						final.push({'user': user.github.id,'userName':user.github.username,'book':book});
+						final.push({'user': user.github.id,'userName':user.github.username,'book':book, 'geoLocation':user.geolocation});
 					});
 					
 				});
@@ -110,35 +110,6 @@ function ChangeHandler () {
 			);*/
 	};
 	
-	this.getA = function (req, res) {
-		
-		var bookTitle = req.originalUrl.toString().split("/api/:id/changesa/")[1].split('*****')[1];
-		var user = req.originalUrl.toString().split("/api/:id/changesa/")[1].split('*****')[0];
-		
-		Users
-			.findOneAndUpdate({ /*'github.id': user,*/ 'changeList.books.title': unescape(bookTitle), 'changeList.books.user': req.user.github.id }, { 'changeList.books.$.approbed': true })
-			.exec(function (err, result) {
-					if (err) { throw err; }
-					console.log(result)
-					res.json(result);
-				}
-			);
-	};
-
-	/*this.searchBook = function(req,res){
-		
-		var book = req.originalUrl.toString().split("/api/:id/search/")[1];//.split("_");
-		books.search(book, function(error, results) {
-    		if ( ! error ) {
-        		//console.log(results);
-        		res.send(results)
-    		} else {
-        		console.log(error);
-    		}
-		});
-		
-	}*/
-	
 	this.addChange = function (req, res) {
 		//console.log(req.originalUrl.toString().split("/add/")[1]);
 		var bookText = req.originalUrl.toString().split("/api/:id/changeadd/")[1];
@@ -171,6 +142,38 @@ function ChangeHandler () {
 					res.json(result.changeList.books);
 				}
 			);
+	};
+	
+	this.setGeoLocation = function (req, res) {
+		//console.log(req.originalUrl.toString().split("/add/")[1]);
+		var bookText = req.originalUrl.toString().split("/api/:id/changesetgeo/")[1];
+		var geoLocation = bookText.split('*****');
+		//console.log(book);
+		//var inData = {};
+		/*if(book.length == 3) *///inData = { title:unescape(book[0]), user:book[1], userName:book[2], approbed: false };
+		//else if(book.length < 3) inData = { title:unescape(book[0]), user:book[1]};
+		
+		Users
+			.findOneAndUpdate({ 'github.id': req.user.github.id }, { 'geolocation.city': geoLocation[0], 'geolocation.state': geoLocation[1]})
+			.exec(function (err, result) {
+					if (err) { throw err; }
+
+					res.json(result.geolocation);
+				}
+			);
+			
+	};
+	
+	this.getGeoLocation = function (req, res) {
+		Users
+			.findOne({ 'github.id': req.user.github.id }, { '_id': false })
+			.exec(function (err, result) {
+					if (err) { throw err; }
+
+					res.json(result.geolocation);
+				}
+			);
+			
 	};
 
 }

@@ -18,8 +18,8 @@
       var count = 1;
       for(var a = 0; a < search.length; a++){
          
-         if(search[a].subtitle !== undefined) allBooks.innerHTML = allBooks.innerHTML + '<li><div><input type="radio" value="' +search[a].book.title+"*****"+search[a].user+ "*****"+search[a].userName+ '" name="radioBook" id="radioBook'+a+'">'+search[a].book.title+'<br>Info: '+search[a].book.subtitle+'<br><img src='+search[a].book.thumbnail+' class = "miniimg img-rounded"></div>      </li>';
-         else allBooks.innerHTML = allBooks.innerHTML + '<li><div><input type="radio" value="' +search[a].book.title+'*****'+search[a].user +"*****"+search[a].userName+'" name="radioBook" id="radioBook'+a+'">'+search[a].book.title+'<img src='+search[a].book.thumbnail+' class = "miniimg img-rounded"></div>        </li>';
+         if(search[a].subtitle !== undefined) allBooks.innerHTML = allBooks.innerHTML + '<li><div><input type="radio" value="' +search[a].book.title+"*****"+search[a].user+ "*****"+search[a].userName+ '" name="radioBook" id="radioBook'+a+'">'+search[a].book.title+'<br>Info: '+search[a].book.subtitle+'<br>At '+search[a].geoLocation.city+', ' +search[a].geoLocation.state+'<br><img src='+search[a].book.thumbnail+' class = "miniimg img-rounded"></div>  </li>';
+         else allBooks.innerHTML = allBooks.innerHTML + '<li><div><input type="radio" value="' +search[a].book.title+'*****'+search[a].user +"*****"+search[a].userName+'" name="radioBook" id="radioBook'+a+'">'+search[a].book.title+'<br>At '+search[a].geoLocation.city+', ' +search[a].geoLocation.state+'<br><img src='+search[a].book.thumbnail+' class = "miniimg img-rounded"></div>    </li>';
          count++;
       }
      allBooks.innerHTML = allBooks.innerHTML + '';
@@ -30,8 +30,10 @@
       console.log(books);
       myChanges.innerHTML = '<h3>THIS ARE MY CHANGES:</h3><br>';
       for(var a = 0; a < books.length; a++){
-         /*if(books[a].subtitle !== null)*/ myChanges.innerHTML = myChanges.innerHTML + '<li><input type="radio" value="' +books[a].title+'" name="radioChanges" id="radioChange'+a+'">'+books[a].title+'<br>From: '+books[a].userName+'</li><br>';
+         /*if(books[a].subtitle !== null)*/ myChanges.innerHTML = myChanges.innerHTML + '<li><input type="radio" value="' +books[a].title+'" name="radioChanges" id="radioChange'+a+'">'+books[a].title+'<br>From: '+books[a].userName+'';
          //else myBooks.innerHTML = myBooks.innerHTML + '<li><input type="radio" value="' +books[a].title+'" name="radioMyBook" id="radioBook'+a+'">'+books[a].title+'<img src='+books[a].thumbnail+' class = "miniimg img-rounded"></li><br>';
+         if(books[a].approbed == false) myChanges.innerHTML = myChanges.innerHTML + 'Owner have not approved yet the trade with you!</li><br>';
+         else if(books[a].approbed == true) myChanges.innerHTML = myChanges.innerHTML + 'Owner have approved the trade with you!</li><br>';
       }
       
    }

@@ -3,9 +3,23 @@
 <html>
 
 	<head>
-		<title>Clementine.js - The elegant and lightweight full stack JavaScript boilerplate.</title>
-		
-		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+		<script> 
+    $(function(){
+      $("#includedHead").load("/public/head.html"); 
+    });
+    </script> 
+    <script> 
+   /* $(function(){
+      $("#includedLogo").load("/public/logo.html"); 
+    });*/
+    </script> 
+    <script> 
+    $(function(){
+      $("#includedFoot").load("/public/foot.html"); 
+    });
+    </script> 
+    <div id="includedHead"></div>
 	</head>
 
 	<body>
@@ -21,6 +35,16 @@
 				<a class="menu" href="/logout">Logout</a>
 			</div>
 			
+			<div class="form-group">
+					<p>Here you can update your city and state!</p>
+		<label for="City">City:</label>
+  <input type="text" class="form-control glyphicon" name="city" id="city" placeholder="City">
+  <label for="State">State:</label>
+  <input type="text" class="form-control glyphicon" name="state" id="state" placeholder="State">
+</div>
+				<button type="submit" class="btn btn-add" id="save">SAVE</button><br>
+				
+			
 			<h3>CHANGES PROPOSED FOR ME:</h3>
 			<ul class="list-group" id="changesp">
             </ul>
@@ -29,6 +53,10 @@
 		
 		<script type="text/javascript" src="common/ajax-functions.js"></script>
 		<script type="text/javascript" src="controllers/userController.client.js"></script>
+		
+		<center>
+			<div id="includedFoot"></div>
+		</center>
 	</body>
 
 </html>
